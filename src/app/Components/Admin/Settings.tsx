@@ -12,11 +12,11 @@ import {
 } from "react-icons/fa";
 
 export default function Settings() {
-  const [company, setCompany] = useState("SafariDesk Tours");
-  const [email, setEmail] = useState("info@safaridesk.com");
-  const [phone, setPhone] = useState("+254 700 123 456");
+  const [company, setCompany] = useState("KeenSight Tours");
+  const [email, setEmail] = useState("collinkiragu@gmail.com");
+  const [phone, setPhone] = useState("+254 112 667 455");
   const [location, setLocation] = useState("Nairobi, Kenya");
-  const [website, setWebsite] = useState("www.safaridesk.com");
+  const [website, setWebsite] = useState("www.keensight-tours.com");
 
   const handleSave = () => {
     alert("Settings saved successfully! (Dummy)");

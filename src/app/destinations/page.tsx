@@ -7,37 +7,37 @@ const destinations = [
     id: 1,
     name: "Maasai Mara",
     county: "Narok",
-    image: "/review.jpg"
+    image: "/explore.jpeg"
   },
   {
     id: 2,
     name: "Diani Beach",
     county: "Kwale",
-    image: "/hero.jpg"
+    image: "/explore.jpeg"
   },
   {
     id: 3,
     name: "Amboseli National Park",
     county: "Kajiado",
-    image: "/safariguide.jpg"
+    image: "/explore.jpeg"
   },
   {
     id: 4,
     name: "Lake Nakuru",
     county: "Nakuru",
-    image: "/review.jpg"
+    image: "/explore.jpeg"
   },
   {
     id: 5,
     name: "Mount Kenya",
     county: "Nyeri",
-    image: "/hero.jpg"
+    image: "/explore.jpeg"
   },
   {
     id: 6,
     name: "Hell&apos;s Gate",
     county: "Naivasha",
-    image: "/safariguide.jpg"
+    image: "/explore.jpeg"
   }
 ];
 
@@ -71,7 +71,7 @@ export default function DestinationsPage() {
               alt={destination.name}
               width={500}
               height={350}
-              className="h-72 w-full object-cover group-hover:scale-105 transition duration-500"
+              className="h-[350px] w-[1/3] object-cover group-hover:scale-105 transition duration-500"
             />
 
             <div className="p-5">

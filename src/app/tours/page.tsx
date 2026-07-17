@@ -9,7 +9,7 @@ const tours = [
     location: "Nairobi",
     duration: "Half Day",
     price: "KSh 2,500",
-    image: "/hero.jpg",
+    image: "/explore.jpeg",
     includes: [
       "Professional Guide",
       "Park Entry",
@@ -23,7 +23,7 @@ const tours = [
     location: "Narok",
     duration: "3 Days",
     price: "KSh 35,000",
-    image: "/review.jpg",
+    image: "/explore.jpeg",
     includes: [
       "Accommodation",
       "Meals",
@@ -37,7 +37,7 @@ const tours = [
     location: "Naivasha",
     duration: "1 Day",
     price: "KSh 6,500",
-    image: "/safariguide.jpg",
+    image: "/explore.jpeg",
     includes: [
       "Bike Rental",
       "Guide",
@@ -72,8 +72,8 @@ export default function ToursPage() {
               src={tour.image}
               alt={tour.name}
               width={500}
-              height={320}
-              className="w-full h-60 object-cover"
+              height={350}
+              className="w-[1/3] h-75 object-cover"
             />
 
             <div className="p-6">
