@@ -23,7 +23,7 @@ export default function AboutPage() {
           className="text-gray-600 mt-5 max-w-3xl mx-auto"
         >
           Keensight Tours is a modern travel platform designed to help travelers
-          discover Kenya's breathtaking destinations, compare tour packages,
+          discover Kenya&apos;s breathtaking destinations, compare tour packages,
           and book unforgettable adventures with ease.
         </motion.p>
       </section>

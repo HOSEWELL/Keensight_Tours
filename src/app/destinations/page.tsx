@@ -35,7 +35,7 @@ const destinations = [
   },
   {
     id: 6,
-    name: "Hell's Gate",
+    name: "Hell&apos;s Gate",
     county: "Naivasha",
     image: "/safariguide.jpg"
   }
@@ -52,7 +52,7 @@ export default function DestinationsPage() {
         </h1>
 
         <p className="mt-4 text-gray-600">
-          Explore Kenya's most beautiful places.
+          Explore Kenya&apos;s most beautiful places.
         </p>
 
       </div>

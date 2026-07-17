@@ -19,7 +19,7 @@ export default function ContactPage() {
         </h1>
 
         <p className="text-gray-600 mt-4">
-          We'd love to hear from you.
+          We&apos;d love to hear from you.
         </p>
       </motion.div>
 

@@ -6,7 +6,6 @@ import {
   FaUsers,
   FaMoneyBillWave,
   FaArrowUp,
-  FaArrowDown,
 } from "react-icons/fa";
 
 export default function Dashboard() {
