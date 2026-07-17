@@ -65,7 +65,7 @@ export default function AboutPage() {
             </h2>
 
             <p className="text-gray-600 mt-3">
-              To become Africa's leading online platform for wildlife,
+              To become Africa&apos;s leading online platform for wildlife,
               adventure and cultural tourism.
             </p>
           </div>
