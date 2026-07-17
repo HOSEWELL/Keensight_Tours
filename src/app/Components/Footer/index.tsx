@@ -67,7 +67,7 @@ export default function Footer() {
                                 <FaInstagram className="text-[#03624C] cursor-pointer hover:scale-110 transition" size={20} />
                                 <span className="text-[12px]">Instagram</span>
                             </Link>
-                            <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1">
+                            <Link href="https://x.com/CollinKira22132" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1">
                                 <FaXTwitter className="text-[#03624C] cursor-pointer hover:scale-110 transition" size={20} />
                                 <span className="text-[12px]">Twitter</span>
                             </Link>
@@ -87,7 +87,7 @@ export default function Footer() {
             <hr />
 
             <div className='flex flex-col md:flex-row justify-between text-sm py-3 text-center md:text-left'>
-                <p>© 2025 safaridesk. All rights reserved.</p>
+                <p>© 2026 Keensight Tours and Travel. All rights reserved.</p>
                 <div className='flex space-x-5 mt-2 md:mt-0 justify-center md:justify-end'>
                     <p>Privacy Policy</p>
                     <p>Terms of Service</p>

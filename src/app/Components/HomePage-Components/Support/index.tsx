@@ -41,7 +41,7 @@ export default function Support() {
                 href="mailto:cribhuntweb@gmail.com"
                 className="text-[#03624C] font-semibold hover:underline"
               >
-                safaridesk@gmail.com
+                collinkiragu@gmail.com
               </a>
             </div>
           </div>
@@ -56,7 +56,7 @@ export default function Support() {
                 href="tel:+254743823564"
                 className="text-[#03624C] font-semibold hover:underline"
               >
-                +254 759 582 907
+                +254 112667455
               </a>
             </div>
           </div>
@@ -70,7 +70,7 @@ export default function Support() {
           viewport={{ once: true }}
         >
           <Image
-            src="/safariguide.jpg"
+            src="/safariguide-bg.png"
             width={500}
             height={500}
             alt="Support"

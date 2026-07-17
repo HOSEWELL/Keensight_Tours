@@ -24,12 +24,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <title>{String(metadata.title) ?? "SafariDesk - Book our adventure tickets online"}</title>
+        <title>{String(metadata.title) ?? "Keensight - Book our adventure tickets online"}</title>
         <meta
           name="description"
           content={
             metadata.description ??
-            "Safaridesk helps you book tickets faster and easier online."
+            "Keensight Tours and Travel helps you book tickets faster and easier online."
           }
         />
         <link rel="icon" href="/logo.jpg" sizes="any" />

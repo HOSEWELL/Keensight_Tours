@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import Loading from "./Components/Loading";
 
@@ -30,9 +29,8 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
-      <Image src="/logo.jpg" width={200} height={200} alt="logo" className="w-3/4 md:w-1/2" />
       <p className="text-xl text-center">
-        Book your Tickets, Hassle Free
+        Book your Tour Package, Hassle Free
       </p>
       <Loading />
     </motion.div>

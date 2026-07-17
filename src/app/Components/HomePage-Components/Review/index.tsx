@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Review() {
     return (
-        <div className="bg-[#DAFCE4] py-20 px-10 grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="bg-[#DAFCE4] py-20 px-10 grid grid-cols-1 md:grid-cols-2 gap-2">
             {/* Image Section */}
             <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -31,15 +31,15 @@ export default function Review() {
                 viewport={{ once: true }}
                 className="flex flex-col justify-center space-y-3"
             >
-                <section className="text-2xl">⭐⭐⭐⭐⭐</section>
+                <section className="text-2xl mb-4">⭐⭐⭐⭐⭐</section>
                 <section>
                     <p className="text-lg">
-                        &quot;Safaridesk transformed my ticket search experience! I found an easy way to book a ticket in no time, thanks to its user-friendly interface and detailed listings.&quot;
+                        &quot;Keensight Tours transformed my ticket search experience! I found an easy way to book a ticket in no time, thanks to its user-friendly interface and detailed listings.&quot;
                     </p>
                 </section>
                 <section className="border-l-4 border-black pl-5">
                     <p className="font-semibold text-xl">Kingstone Williams</p>
-                    <p className="text-gray-600">SafariDesk Customer</p>
+                    <p className="text-gray-600">Keensight Customer</p>
                 </section>
             </motion.div>
         </div>
