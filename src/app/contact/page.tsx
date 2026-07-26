@@ -7,14 +7,14 @@ import { IoLocationOutline } from "react-icons/io5";
 
 export default function ContactPage() {
   return (
-    <main className="max-w-6xl mx-auto px-6 py-16">
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="text-center mb-14"
       >
-        <h1 className="text-5xl font-bold">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
           Contact Us
         </h1>
 
@@ -23,7 +23,7 @@ export default function ContactPage() {
         </p>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-16">
+      <div className="grid md:grid-cols-2 gap-8 md:gap-16">
 
         <motion.div
           initial={{ opacity: 0, x: -40 }}
@@ -54,7 +54,7 @@ export default function ContactPage() {
               </h2>
 
               <p className="text-gray-600">
-                +254 112667455
+                +254 112 667455
               </p>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function ContactPage() {
         <motion.form
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
-          className="bg-white rounded-2xl shadow-lg p-8 space-y-5"
+          className="bg-white rounded-2xl shadow-lg p-5 md:p-8 space-y-5"
         >
 
           <input

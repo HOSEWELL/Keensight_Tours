@@ -30,7 +30,7 @@ export default function Home() {
       }}
     >
       <p className="text-xl text-center">
-        Book your Tour Package, Hassle Free
+        Book your Tour, Hassle Free
       </p>
       <Loading />
     </motion.div>

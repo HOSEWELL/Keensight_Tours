@@ -14,7 +14,7 @@ import {
 export default function Settings() {
   const [company, setCompany] = useState("KeenSight Tours");
   const [email, setEmail] = useState("collinkiragu@gmail.com");
-  const [phone, setPhone] = useState("+254 112 667 455");
+  const [phone, setPhone] = useState("+254 112 667455");
   const [location, setLocation] = useState("Nairobi, Kenya");
   const [website, setWebsite] = useState("www.keensight-tours.com");
 
@@ -39,7 +39,7 @@ export default function Settings() {
 
       {/* Company Information */}
 
-      <div className="bg-white rounded-xl shadow p-8">
+      <div className="bg-white rounded-xl shadow p-5 md:p-8">
 
         <h3 className="text-xl font-semibold mb-6">
           Company Information
@@ -118,7 +118,7 @@ export default function Settings() {
 
       {/* Logo */}
 
-      <div className="bg-white rounded-xl shadow p-8">
+      <div className="bg-white rounded-xl shadow p-5 md:p-8">
 
         <h3 className="text-xl font-semibold mb-6">
           Company Logo
@@ -145,7 +145,7 @@ export default function Settings() {
 
       {/* Theme */}
 
-      <div className="bg-white rounded-xl shadow p-8">
+      <div className="bg-white rounded-xl shadow p-5 md:p-8">
 
         <h3 className="text-xl font-semibold mb-6">
           Preferences

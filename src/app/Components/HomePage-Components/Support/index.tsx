@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function Support() {
   return (
-    <div className="p-10 max-w-5xl mx-auto"id="support">
+    <div className="px-4 py-10 sm:p-10 max-w-5xl mx-auto" id="support">
       {/* Title Section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -17,7 +17,7 @@ export default function Support() {
         className="space-y-3 text-center"
       >
         <p className="font-medium text-[#03624C]">Support</p>
-        <h1 className="text-4xl font-semibold">Get in Touch</h1>
+        <h1 className="text-3xl sm:text-4xl font-semibold">Get in Touch</h1>
         <p className="text-gray-600">We&apos;re here to help you with any questions.</p>
       </motion.div>
 
@@ -38,7 +38,7 @@ export default function Support() {
               <p className="text-lg font-medium">Email</p>
               <p className="text-gray-600">Reach us anytime at</p>
               <a
-                href="mailto:cribhuntweb@gmail.com"
+                href="mailto:collinkiragu@gmail.com"
                 className="text-[#03624C] font-semibold hover:underline"
               >
                 collinkiragu@gmail.com
@@ -53,10 +53,10 @@ export default function Support() {
               <p className="text-lg font-medium">Phone</p>
               <p className="text-gray-600">Reach us anytime at</p>
               <a
-                href="tel:+254743823564"
+                href="tel:+254112667455"
                 className="text-[#03624C] font-semibold hover:underline"
               >
-                +254 112667455
+                +254 112 667455
               </a>
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function Support() {
             width={500}
             height={500}
             alt="Support"
-            className="rounded-md shadow-lg"
+            className="w-full h-auto rounded-md shadow-lg"
           />
         </motion.section>
       </div>

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function Review() {
     return (
-        <div className="bg-[#DAFCE4] py-20 px-10 grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="bg-[#DAFCE4] py-10 px-5 md:py-20 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-2">
             {/* Image Section */}
             <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -19,7 +19,7 @@ export default function Review() {
                     alt="reviewer"
                     width={500}
                     height={350}
-                    className="rounded-md shadow-lg"
+                    className="w-full h-auto rounded-md shadow-lg"
                 />
             </motion.div>
 

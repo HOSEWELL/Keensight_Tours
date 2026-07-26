@@ -75,7 +75,7 @@ export default function Customers() {
 
       {/* Header */}
 
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
 
         <div>
           <h2 className="text-3xl font-bold text-gray-800">

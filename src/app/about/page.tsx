@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 
 export default function AboutPage() {
   return (
-    <main className="max-w-7xl mx-auto px-6 py-16">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
 
       <section className="text-center mb-16">
         <motion.h1
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold"
         >
           About Keensight Tours and Travel
         </motion.h1>
@@ -28,7 +28,7 @@ export default function AboutPage() {
         </motion.p>
       </section>
 
-      <section className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
 
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -39,6 +39,7 @@ export default function AboutPage() {
             alt="About SafariDesk"
             width={600}
             height={450}
+            className="w-full h-auto"
           />
         </motion.div>
 
@@ -48,7 +49,7 @@ export default function AboutPage() {
           className="space-y-6"
         >
           <div>
-            <h2 className="text-3xl font-semibold">
+            <h2 className="text-2xl md:text-3xl font-semibold">
               Our Mission
             </h2>
 
@@ -60,7 +61,7 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <h2 className="text-3xl font-semibold">
+            <h2 className="text-2xl md:text-3xl font-semibold">
               Our Vision
             </h2>
 
@@ -71,7 +72,7 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <h2 className="text-3xl font-semibold">
+            <h2 className="text-2xl md:text-3xl font-semibold">
               Why Choose Keensight Tours?
             </h2>
 

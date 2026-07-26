@@ -1,79 +1,92 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   FaMapMarkedAlt,
   FaClipboardList,
   FaUsers,
   FaMoneyBillWave,
-  FaArrowUp,
 } from "react-icons/fa";
+import { Tour, getTours } from "@/lib/tours";
+import { Booking, getBookings } from "@/lib/bookings";
 
-export default function Dashboard() {
+interface Props {
+  onNavigate: (page: string) => void;
+}
+
+export default function Dashboard({ onNavigate }: Props) {
+  const [tours, setTours] = useState<Tour[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const [toursData, bookingsData] = await Promise.all([
+          getTours(),
+          getBookings(),
+        ]);
+        setTours(toursData);
+        setBookings(bookingsData);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    load();
+  }, []);
+
+  const uniqueCustomers = new Set(bookings.map((b) => b.email)).size;
+
+  const revenue = bookings
+    .filter((b) => b.payment_status === "Paid")
+    .reduce((sum, b) => sum + b.total_price, 0);
+
   const stats = [
     {
       title: "Total Tours",
-      value: 18,
-      change: "+4%",
+      value: tours.length,
       icon: <FaMapMarkedAlt size={26} />,
       color: "bg-green-600",
     },
     {
       title: "Bookings",
-      value: 126,
-      change: "+12%",
+      value: bookings.length,
       icon: <FaClipboardList size={26} />,
       color: "bg-blue-600",
     },
     {
       title: "Customers",
-      value: 82,
-      change: "+8%",
+      value: uniqueCustomers,
       icon: <FaUsers size={26} />,
       color: "bg-purple-600",
     },
     {
-      title: "Revenue",
-      value: "KSh 840,000",
-      change: "+16%",
+      title: "Revenue Collected",
+      value: `KSh ${revenue.toLocaleString()}`,
       icon: <FaMoneyBillWave size={26} />,
       color: "bg-orange-600",
     },
   ];
 
-  const bookings = [
-    {
-      customer: "John Kamau",
-      tour: "Maasai Mara Safari",
-      date: "10 Jul 2026",
-      status: "Confirmed",
-    },
-    {
-      customer: "Mary Wanjiru",
-      tour: "Amboseli National Park",
-      date: "15 Jul 2026",
-      status: "Pending",
-    },
-    {
-      customer: "Brian Otieno",
-      tour: "Diani Beach",
-      date: "22 Jul 2026",
-      status: "Confirmed",
-    },
-    {
-      customer: "Susan Achieng",
-      tour: "Tsavo East",
-      date: "01 Aug 2026",
-      status: "Cancelled",
-    },
-  ];
+  // Booking.Meta.ordering is "-created_at" on the backend, so this is
+  // already newest-first.
+  const recentBookings = bookings.slice(0, 5);
 
-  const activities = [
-    "New booking received from John Kamau",
-    "Tour package updated",
-    "New customer registered",
-    "Revenue report generated",
-    "Booking approved",
-  ];
+  function statusColor(status: Booking["status"]) {
+    switch (status) {
+      case "Confirmed":
+        return "bg-green-100 text-green-700";
+      case "Pending":
+        return "bg-yellow-100 text-yellow-700";
+      case "Completed":
+        return "bg-blue-100 text-blue-700";
+      default:
+        return "bg-red-100 text-red-700";
+    }
+  }
 
   return (
     <div className="space-y-8">
@@ -108,18 +121,8 @@ export default function Dashboard() {
                 </p>
 
                 <h2 className="text-3xl font-bold mt-3">
-                  {item.value}
+                  {loading ? "..." : item.value}
                 </h2>
-
-                <div className="flex items-center gap-2 mt-4">
-
-                  <FaArrowUp />
-
-                  <span className="text-sm">
-                    {item.change}
-                  </span>
-
-                </div>
 
               </div>
 
@@ -147,73 +150,72 @@ export default function Dashboard() {
               Recent Bookings
             </h3>
 
-            <button className="text-[#03624C] font-medium">
+            <button
+              onClick={() => onNavigate("bookings")}
+              className="text-[#03624C] font-medium"
+            >
               View All
             </button>
 
           </div>
 
-          <table className="w-full">
+          {loading ? (
+            <p className="text-gray-500 text-sm">Loading...</p>
+          ) : recentBookings.length === 0 ? (
+            <p className="text-gray-500 text-sm">No bookings yet.</p>
+          ) : (
+            <div className="overflow-x-auto">
+            <table className="w-full">
 
-            <thead>
+              <thead>
 
-              <tr className="text-left border-b">
+                <tr className="text-left border-b">
 
-                <th className="py-3">Customer</th>
-                <th>Tour</th>
-                <th>Date</th>
-                <th>Status</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              {bookings.map((booking) => (
-
-                <tr
-                  key={booking.customer}
-                  className="border-b hover:bg-gray-50"
-                >
-
-                  <td className="py-4">
-                    {booking.customer}
-                  </td>
-
-                  <td>{booking.tour}</td>
-
-                  <td>{booking.date}</td>
-
-                  <td>
-
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm
-
-                      ${
-                        booking.status === "Confirmed"
-                          ? "bg-green-100 text-green-700"
-
-                          : booking.status === "Pending"
-                          ? "bg-yellow-100 text-yellow-700"
-
-                          : "bg-red-100 text-red-700"
-                      }
-
-                      `}
-                    >
-                      {booking.status}
-                    </span>
-
-                  </td>
+                  <th className="py-3">Customer</th>
+                  <th>Tour</th>
+                  <th>Travel Date</th>
+                  <th>Status</th>
 
                 </tr>
 
-              ))}
+              </thead>
 
-            </tbody>
+              <tbody>
 
-          </table>
+                {recentBookings.map((booking) => (
+
+                  <tr
+                    key={booking.id}
+                    className="border-b hover:bg-gray-50"
+                  >
+
+                    <td className="py-4">
+                      {booking.first_name} {booking.last_name}
+                    </td>
+
+                    <td>{booking.tour}</td>
+
+                    <td>{booking.travel_date}</td>
+
+                    <td>
+
+                      <span
+                        className={`px-3 py-1 rounded-full text-sm ${statusColor(booking.status)}`}
+                      >
+                        {booking.status}
+                      </span>
+
+                    </td>
+
+                  </tr>
+
+                ))}
+
+              </tbody>
+
+            </table>
+            </div>
+          )}
 
         </div>
 
@@ -225,34 +227,41 @@ export default function Dashboard() {
             Latest Activity
           </h3>
 
-          <div className="space-y-5">
+          {loading ? (
+            <p className="text-gray-500 text-sm">Loading...</p>
+          ) : recentBookings.length === 0 ? (
+            <p className="text-gray-500 text-sm">Nothing to show yet.</p>
+          ) : (
+            <div className="space-y-5">
 
-            {activities.map((activity) => (
+              {recentBookings.map((booking) => (
 
-              <div
-                key={activity}
-                className="flex gap-4 items-start"
-              >
+                <div
+                  key={booking.id}
+                  className="flex gap-4 items-start"
+                >
 
-                <div className="w-3 h-3 rounded-full bg-[#03624C] mt-2"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#03624C] mt-2"></div>
 
-                <div>
+                  <div>
 
-                  <p className="font-medium">
-                    {activity}
-                  </p>
+                    <p className="font-medium">
+                      {booking.first_name} {booking.last_name} booked{" "}
+                      {booking.tour}
+                    </p>
 
-                  <span className="text-gray-500 text-sm">
-                    Just now
-                  </span>
+                    <span className="text-gray-500 text-sm">
+                      {booking.booking_number} &middot; {booking.status}
+                    </span>
+
+                  </div>
 
                 </div>
 
-              </div>
+              ))}
 
-            ))}
-
-          </div>
+            </div>
+          )}
 
         </div>
 
@@ -268,20 +277,25 @@ export default function Dashboard() {
 
         <div className="flex flex-wrap gap-4">
 
-          <button className="bg-[#03624C] text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
+          <button
+            onClick={() => onNavigate("tours")}
+            className="bg-[#03624C] text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
+          >
             Add Tour
           </button>
 
-          <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-            Add Destination
-          </button>
-
-          <button className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition">
+          <button
+            onClick={() => onNavigate("bookings")}
+            className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition"
+          >
             View Bookings
           </button>
 
-          <button className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition">
-            Generate Report
+          <button
+            onClick={() => onNavigate("customers")}
+            className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition"
+          >
+            Manage Customers
           </button>
 
         </div>

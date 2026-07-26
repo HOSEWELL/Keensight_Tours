@@ -63,10 +63,6 @@ export default function NavBar() {
             Tours
           </Link>
 
-          <Link href="/destinations" className={activeClass("/destinations")}>
-            Destinations
-          </Link>
-
           <Link href="/about" className={activeClass("/about")}>
             About
           </Link>
@@ -122,14 +118,6 @@ export default function NavBar() {
                 className={activeClass("/tours")}
               >
                 Tours
-              </Link>
-
-              <Link
-                href="/destinations"
-                onClick={() => setIsMenuOpen(false)}
-                className={activeClass("/destinations")}
-              >
-                Destinations
               </Link>
 
               <Link

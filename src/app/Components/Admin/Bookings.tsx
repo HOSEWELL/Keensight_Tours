@@ -1,83 +1,94 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   FaSearch,
-  FaEye,
   FaCheckCircle,
   FaTimesCircle,
+  FaTrash,
 } from "react-icons/fa";
-
-interface Booking {
-  id: string;
-  customer: string;
-  email: string;
-  tour: string;
-  travelDate: string;
-  people: number;
-  amount: string;
-  payment: "Paid" | "Pending";
-  status: "Confirmed" | "Pending" | "Cancelled";
-}
+import {
+  Booking,
+  deleteBooking,
+  getBookings,
+  updateBookingStatus,
+} from "@/lib/bookings";
 
 export default function Bookings() {
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [search, setSearch] = useState("");
 
-  const bookings: Booking[] = [
-    {
-      id: "BK001",
-      customer: "John Kamau",
-      email: "john@gmail.com",
-      tour: "Maasai Mara Safari",
-      travelDate: "10 Jul 2026",
-      people: 2,
-      amount: "KSh 70,000",
-      payment: "Paid",
-      status: "Confirmed",
-    },
-    {
-      id: "BK002",
-      customer: "Mary Wanjiru",
-      email: "mary@gmail.com",
-      tour: "Amboseli Adventure",
-      travelDate: "18 Jul 2026",
-      people: 4,
-      amount: "KSh 112,000",
-      payment: "Pending",
-      status: "Pending",
-    },
-    {
-      id: "BK003",
-      customer: "Brian Otieno",
-      email: "brian@gmail.com",
-      tour: "Diani Beach Holiday",
-      travelDate: "01 Aug 2026",
-      people: 3,
-      amount: "KSh 144,000",
-      payment: "Paid",
-      status: "Confirmed",
-    },
-    {
-      id: "BK004",
-      customer: "Susan Achieng",
-      email: "susan@gmail.com",
-      tour: "Lake Nakuru Tour",
-      travelDate: "12 Aug 2026",
-      people: 2,
-      amount: "KSh 37,000",
-      payment: "Pending",
-      status: "Cancelled",
-    },
-  ];
+  async function loadBookings() {
+    try {
+      setLoading(true);
+      setError(false);
+
+      const data = await getBookings();
+      setBookings(data);
+    } catch (error) {
+      console.error(error);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadBookings();
+  }, []);
 
   const filteredBookings = useMemo(() => {
     return bookings.filter(
       (booking) =>
-        booking.customer.toLowerCase().includes(search.toLowerCase()) ||
+        booking.first_name.toLowerCase().includes(search.toLowerCase()) ||
+        booking.last_name.toLowerCase().includes(search.toLowerCase()) ||
         booking.tour.toLowerCase().includes(search.toLowerCase()) ||
-        booking.id.toLowerCase().includes(search.toLowerCase())
+        booking.booking_number.toLowerCase().includes(search.toLowerCase())
     );
-  }, [search]);
+  }, [bookings, search]);
+
+  async function confirmBooking(booking: Booking) {
+    try {
+      await updateBookingStatus(booking.id, { status: "Confirmed" });
+      loadBookings();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update booking.");
+    }
+  }
+
+  async function cancelBooking(booking: Booking) {
+    try {
+      await updateBookingStatus(booking.id, { status: "Cancelled" });
+      loadBookings();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update booking.");
+    }
+  }
+
+  async function handleDelete(booking: Booking) {
+    if (!confirm(`Delete booking ${booking.booking_number}?`)) return;
+
+    try {
+      await deleteBooking(booking.id);
+      loadBookings();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete booking.");
+    }
+  }
+
+  const counts = useMemo(
+    () => ({
+      confirmed: bookings.filter((b) => b.status === "Confirmed").length,
+      pending: bookings.filter((b) => b.status === "Pending").length,
+      cancelled: bookings.filter((b) => b.status === "Cancelled").length,
+    }),
+    [bookings]
+  );
 
   return (
     <div className="space-y-8">
@@ -118,119 +129,149 @@ export default function Bookings() {
 
       <div className="bg-white rounded-xl shadow overflow-x-auto">
 
-        <table className="w-full">
+        {loading ? (
+          <p className="p-8 text-center text-gray-500">
+            Loading bookings...
+          </p>
+        ) : error ? (
+          <p className="p-8 text-center text-red-600">
+            Failed to load bookings.
+          </p>
+        ) : filteredBookings.length === 0 ? (
+          <p className="p-8 text-center text-gray-500">
+            No bookings found.
+          </p>
+        ) : (
+          <table className="w-full">
 
-          <thead className="bg-gray-100">
+            <thead className="bg-gray-100">
 
-            <tr>
+              <tr>
 
-              <th className="text-left p-4">Booking ID</th>
-              <th className="text-left">Customer</th>
-              <th className="text-left">Tour</th>
-              <th className="text-left">Travel Date</th>
-              <th className="text-left">People</th>
-              <th className="text-left">Amount</th>
-              <th className="text-left">Payment</th>
-              <th className="text-left">Status</th>
-              <th className="text-center">Actions</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            {filteredBookings.map((booking) => (
-
-              <tr
-                key={booking.id}
-                className="border-t hover:bg-gray-50"
-              >
-
-                <td className="p-4 font-semibold">
-                  {booking.id}
-                </td>
-
-                <td>
-
-                  <div>
-                    <p className="font-medium">
-                      {booking.customer}
-                    </p>
-
-                    <p className="text-sm text-gray-500">
-                      {booking.email}
-                    </p>
-
-                  </div>
-
-                </td>
-
-                <td>{booking.tour}</td>
-
-                <td>{booking.travelDate}</td>
-
-                <td>{booking.people}</td>
-
-                <td>{booking.amount}</td>
-
-                <td>
-
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      booking.payment === "Paid"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
-                  >
-                    {booking.payment}
-                  </span>
-
-                </td>
-
-                <td>
-
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      booking.status === "Confirmed"
-                        ? "bg-green-100 text-green-700"
-                        : booking.status === "Pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {booking.status}
-                  </span>
-
-                </td>
-
-                <td>
-
-                  <div className="flex justify-center gap-3">
-
-                    <button className="text-blue-600 hover:text-blue-800">
-                      <FaEye size={18} />
-                    </button>
-
-                    <button className="text-green-600 hover:text-green-800">
-                      <FaCheckCircle size={18} />
-                    </button>
-
-                    <button className="text-red-600 hover:text-red-800">
-                      <FaTimesCircle size={18} />
-                    </button>
-
-                  </div>
-
-                </td>
+                <th className="text-left p-4">Booking ID</th>
+                <th className="text-left">Customer</th>
+                <th className="text-left">Tour</th>
+                <th className="text-left">Travel Date</th>
+                <th className="text-left">People</th>
+                <th className="text-left">Amount</th>
+                <th className="text-left">Payment</th>
+                <th className="text-left">Status</th>
+                <th className="text-center">Actions</th>
 
               </tr>
 
-            ))}
+            </thead>
 
-          </tbody>
+            <tbody>
 
-        </table>
+              {filteredBookings.map((booking) => (
+
+                <tr
+                  key={booking.id}
+                  className="border-t hover:bg-gray-50"
+                >
+
+                  <td className="p-4 font-semibold">
+                    {booking.booking_number}
+                  </td>
+
+                  <td>
+
+                    <div>
+                      <p className="font-medium">
+                        {booking.first_name} {booking.last_name}
+                      </p>
+
+                      <p className="text-sm text-gray-500">
+                        {booking.email}
+                      </p>
+
+                    </div>
+
+                  </td>
+
+                  <td>{booking.tour}</td>
+
+                  <td>{booking.travel_date}</td>
+
+                  <td>{booking.adults + booking.children}</td>
+
+                  <td>KSh {booking.total_price.toLocaleString()}</td>
+
+                  <td>
+
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        booking.payment_status === "Paid"
+                          ? "bg-green-100 text-green-700"
+                          : booking.payment_status === "Refunded"
+                          ? "bg-gray-100 text-gray-600"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {booking.payment_status}
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        booking.status === "Confirmed"
+                          ? "bg-green-100 text-green-700"
+                          : booking.status === "Pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : booking.status === "Completed"
+                          ? "bg-blue-100 text-blue-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {booking.status}
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <div className="flex justify-center gap-3">
+
+                      <button
+                        onClick={() => confirmBooking(booking)}
+                        title="Confirm"
+                        className="text-green-600 hover:text-green-800"
+                      >
+                        <FaCheckCircle size={18} />
+                      </button>
+
+                      <button
+                        onClick={() => cancelBooking(booking)}
+                        title="Cancel"
+                        className="text-yellow-600 hover:text-yellow-800"
+                      >
+                        <FaTimesCircle size={18} />
+                      </button>
+
+                      <button
+                        onClick={() => handleDelete(booking)}
+                        title="Delete"
+                        className="text-red-600 hover:text-red-800"
+                      >
+                        <FaTrash size={18} />
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+        )}
 
       </div>
 
@@ -244,7 +285,7 @@ export default function Bookings() {
           </h3>
 
           <p className="text-4xl font-bold mt-4">
-            2
+            {counts.confirmed}
           </p>
         </div>
 
@@ -254,7 +295,7 @@ export default function Bookings() {
           </h3>
 
           <p className="text-4xl font-bold mt-4">
-            1
+            {counts.pending}
           </p>
         </div>
 
@@ -264,7 +305,7 @@ export default function Bookings() {
           </h3>
 
           <p className="text-4xl font-bold mt-4">
-            1
+            {counts.cancelled}
           </p>
         </div>
 

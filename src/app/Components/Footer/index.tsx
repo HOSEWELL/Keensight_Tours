@@ -51,9 +51,9 @@ export default function Footer() {
                         <h1 className="font-semibold">Quick Links</h1>
                         <ul className="space-y-1">
                             <li><Link href="/about">About us</Link></li>
-                            <li><Link href="#support">Contact us</Link></li>
-                            <li><Link href="#">Privacy Policy</Link></li>
-                            <li><Link href="#">Terms of Service</Link></li>
+                            <li><Link href="/contact">Contact us</Link></li>
+                            <li><Link href="/about">Privacy Policy</Link></li>
+                            <li><Link href="/about">Terms of Service</Link></li>
                         </ul>
                     </div>
                     <div>
@@ -63,7 +63,7 @@ export default function Footer() {
                                 <FaFacebookF className="text-[#03624C] cursor-pointer hover:scale-110 transition" size={20} />
                                 <span className="text-[12px]">Facebook</span>
                             </Link>
-                            <Link href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1">
+                            <Link href="https://www.instagram.com/colly_collyn?igsh=MWtvZXZvZWk3MWY0aA==" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1">
                                 <FaInstagram className="text-[#03624C] cursor-pointer hover:scale-110 transition" size={20} />
                                 <span className="text-[12px]">Instagram</span>
                             </Link>

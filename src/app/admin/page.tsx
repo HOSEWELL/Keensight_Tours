@@ -8,7 +8,6 @@ import Header from "../Components/Admin/Header";
 
 import Dashboard from "../Components/Admin/Dashboard";
 import Tours from "../Components/Admin/Tours";
-import Destinations from "../Components/Admin/Destinations";
 import Bookings from "../Components/Admin/Bookings";
 import Customers from "../Components/Admin/Customers";
 import Settings from "../Components/Admin/Settings";
@@ -17,6 +16,7 @@ export default function AdminPage() {
   const router = useRouter();
 
   const [activePage, setActivePage] = useState("dashboard");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const isAdmin = localStorage.getItem("admin");
@@ -29,13 +29,10 @@ export default function AdminPage() {
   const renderPage = () => {
     switch (activePage) {
       case "dashboard":
-        return <Dashboard />;
+        return <Dashboard onNavigate={setActivePage} />;
 
       case "tours":
         return <Tours />;
-
-      case "destinations":
-        return <Destinations />;
 
       case "bookings":
         return <Bookings />;
@@ -47,7 +44,7 @@ export default function AdminPage() {
         return <Settings />;
 
       default:
-        return <Dashboard />;
+        return <Dashboard onNavigate={setActivePage} />;
     }
   };
 
@@ -57,13 +54,18 @@ export default function AdminPage() {
       <Sidebar
         activePage={activePage}
         setActivePage={setActivePage}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
 
       <div className="flex-1 flex flex-col overflow-hidden">
 
-        <Header />
+        <Header
+          onViewBookings={() => setActivePage("bookings")}
+          onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
+        />
 
-        <main className="flex-1 overflow-y-auto p-8">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8">
           {renderPage()}
         </main>
 

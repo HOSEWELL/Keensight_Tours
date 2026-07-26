@@ -9,10 +9,13 @@ export default function AdminLoginPage() {
 
   const [password, setPassword] = useState("");
 
+  const ADMIN_PASSWORD =
+    process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "collin";
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password === "admin") {
+    if (password === ADMIN_PASSWORD) {
       localStorage.setItem("admin", "true");
       router.push("/admin");
     } else {

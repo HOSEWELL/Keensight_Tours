@@ -1,58 +1,37 @@
 "use client";
 
-import Image from "next/image";
-
-const tours = [
-  {
-    id: 1,
-    name: "Nairobi Safari Walk",
-    location: "Nairobi",
-    duration: "Half Day",
-    price: "KSh 2,500",
-    image: "/explore.jpeg",
-    includes: [
-      "Professional Guide",
-      "Park Entry",
-      "Bottled Water",
-      "Photography"
-    ]
-  },
-  {
-    id: 2,
-    name: "Maasai Mara Safari",
-    location: "Narok",
-    duration: "3 Days",
-    price: "KSh 35,000",
-    image: "/explore.jpeg",
-    includes: [
-      "Accommodation",
-      "Meals",
-      "Game Drives",
-      "Transport"
-    ]
-  },
-  {
-    id: 3,
-    name: "Hell's Gate Adventure",
-    location: "Naivasha",
-    duration: "1 Day",
-    price: "KSh 6,500",
-    image: "/explore.jpeg",
-    includes: [
-      "Bike Rental",
-      "Guide",
-      "Lunch",
-      "Park Entry"
-    ]
-  }
-];
+import { useEffect, useState } from "react";
+import { Tour, getTours } from "@/lib/tours";
+import { mediaUrl } from "@/lib/api";
+import BookingModal from "../Components/BookingModal";
 
 export default function ToursPage() {
+  const [tours, setTours] = useState<Tour[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [bookingTour, setBookingTour] = useState<Tour | null>(null);
+
+  useEffect(() => {
+    async function loadTours() {
+      try {
+        const data = await getTours();
+        setTours(data);
+      } catch (error) {
+        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadTours();
+  }, []);
+
   return (
-    <main className="max-w-7xl mx-auto px-6 py-16">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
 
       <div className="text-center mb-14">
-        <h1 className="text-5xl font-bold">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
           Tour Packages
         </h1>
 
@@ -61,64 +40,78 @@ export default function ToursPage() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {loading ? (
+        <p className="text-center text-gray-500">
+          Loading tours...
+        </p>
+      ) : error ? (
+        <p className="text-center text-red-600">
+          Failed to load tours.
+        </p>
+      ) : tours.length === 0 ? (
+        <p className="text-center text-gray-500">
+          No tours available yet.
+        </p>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        {tours.map((tour) => (
-          <div
-            key={tour.id}
-            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition"
-          >
-            <Image
-              src={tour.image}
-              alt={tour.name}
-              width={500}
-              height={350}
-              className="w-[1/3] h-75 object-cover"
-            />
+          {tours.map((tour) => (
+            <div
+              key={tour.id}
+              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={mediaUrl(tour.cover_image) || "/explore.jpeg"}
+                alt={tour.title}
+                className="w-full aspect-[4/3] object-cover"
+              />
 
-            <div className="p-6">
+              <div className="p-6">
 
-              <h2 className="text-2xl font-semibold">
-                {tour.name}
-              </h2>
+                <h2 className="text-2xl font-semibold">
+                  {tour.title}
+                </h2>
 
-              <p className="text-gray-500 mt-1">
-                📍 {tour.location}
-              </p>
+                <p className="text-gray-500 mt-1">
+                  📍 {tour.destination}
+                </p>
 
-              <p className="mt-2">
-                ⏱ {tour.duration}
-              </p>
+                <p className="mt-2">
+                  ⏱ {tour.duration}
+                </p>
 
-              <p className="mt-4 text-2xl font-bold text-[#03624C]">
-                {tour.price}
-              </p>
+                {tour.short_description && (
+                  <p className="mt-3 text-gray-600 line-clamp-2">
+                    {tour.short_description}
+                  </p>
+                )}
 
-              <div className="mt-5">
+                <p className="mt-4 text-2xl font-bold text-[#03624C]">
+                  KSh {tour.price.toLocaleString()}
+                </p>
 
-                <h3 className="font-semibold mb-2">
-                  Package Includes
-                </h3>
-
-                <ul className="space-y-1 text-gray-600">
-                  {tour.includes.map((item) => (
-                    <li key={item}>
-                      ✅ {item}
-                    </li>
-                  ))}
-                </ul>
+                <button
+                  onClick={() => setBookingTour(tour)}
+                  disabled={!tour.available}
+                  className="mt-6 w-full bg-[#03624C] text-white py-3 rounded-xl hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {tour.available ? "Book Tour" : "Unavailable"}
+                </button>
 
               </div>
-
-              <button className="mt-6 w-full bg-[#03624C] text-white py-3 rounded-xl hover:bg-green-700 transition">
-                Book Tour
-              </button>
-
             </div>
-          </div>
-        ))}
+          ))}
 
-      </div>
+        </div>
+      )}
+
+      {bookingTour && (
+        <BookingModal
+          tour={bookingTour}
+          onClose={() => setBookingTour(null)}
+        />
+      )}
 
     </main>
   );
