@@ -9,8 +9,7 @@ export default function AdminLoginPage() {
 
   const [password, setPassword] = useState("");
 
-  const ADMIN_PASSWORD =
-    process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "collin";
+  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
