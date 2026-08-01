@@ -100,6 +100,36 @@ export default function Tours() {
 
       </div>
 
+      {/* Summary */}
+
+      <div className="grid md:grid-cols-2 gap-5">
+
+        <div className="bg-green-600 rounded-xl text-white p-6">
+
+          <h3 className="text-lg font-semibold">
+            Active Tours
+          </h3>
+
+          <p className="text-4xl font-bold mt-4">
+            {tours.filter((t) => t.available).length}
+          </p>
+
+        </div>
+
+        <div className="bg-orange-500 rounded-xl text-white p-6">
+
+          <h3 className="text-lg font-semibold">
+            Inactive Tours
+          </h3>
+
+          <p className="text-4xl font-bold mt-4">
+            {tours.filter((t) => !t.available).length}
+          </p>
+
+        </div>
+
+      </div>
+
       {/* Search */}
 
       <div className="bg-white rounded-xl shadow p-5">
@@ -122,7 +152,7 @@ export default function Tours() {
 
       {/* Table */}
 
-      <div className="bg-white rounded-xl shadow overflow-x-auto">
+      <div className="bg-white rounded-xl shadow overflow-auto max-h-[65vh]">
 
         {loading ? (
           <p className="p-8 text-center text-gray-500">
@@ -139,7 +169,7 @@ export default function Tours() {
         ) : (
           <table className="w-full">
 
-            <thead className="bg-gray-100">
+            <thead className="bg-gray-100 sticky top-0 z-10 [&_th]:bg-gray-100">
 
               <tr>
 
@@ -251,36 +281,6 @@ export default function Tours() {
 
           </table>
         )}
-
-      </div>
-
-      {/* Summary */}
-
-      <div className="grid md:grid-cols-2 gap-5">
-
-        <div className="bg-green-600 rounded-xl text-white p-6">
-
-          <h3 className="text-lg font-semibold">
-            Active Tours
-          </h3>
-
-          <p className="text-4xl font-bold mt-4">
-            {tours.filter((t) => t.available).length}
-          </p>
-
-        </div>
-
-        <div className="bg-orange-500 rounded-xl text-white p-6">
-
-          <h3 className="text-lg font-semibold">
-            Inactive Tours
-          </h3>
-
-          <p className="text-4xl font-bold mt-4">
-            {tours.filter((t) => !t.available).length}
-          </p>
-
-        </div>
 
       </div>
 

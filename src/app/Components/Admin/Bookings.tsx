@@ -105,6 +105,42 @@ export default function Bookings() {
         </p>
       </div>
 
+      {/* Summary Cards */}
+
+      <div className="grid md:grid-cols-3 gap-5">
+
+        <div className="bg-green-600 text-white rounded-xl p-6">
+          <h3 className="text-lg font-semibold">
+            Confirmed
+          </h3>
+
+          <p className="text-4xl font-bold mt-4">
+            {counts.confirmed}
+          </p>
+        </div>
+
+        <div className="bg-yellow-500 text-white rounded-xl p-6">
+          <h3 className="text-lg font-semibold">
+            Pending
+          </h3>
+
+          <p className="text-4xl font-bold mt-4">
+            {counts.pending}
+          </p>
+        </div>
+
+        <div className="bg-red-600 text-white rounded-xl p-6">
+          <h3 className="text-lg font-semibold">
+            Cancelled
+          </h3>
+
+          <p className="text-4xl font-bold mt-4">
+            {counts.cancelled}
+          </p>
+        </div>
+
+      </div>
+
       {/* Search */}
 
       <div className="bg-white rounded-xl shadow p-5">
@@ -127,7 +163,7 @@ export default function Bookings() {
 
       {/* Table */}
 
-      <div className="bg-white rounded-xl shadow overflow-x-auto">
+      <div className="bg-white rounded-xl shadow overflow-auto max-h-[65vh]">
 
         {loading ? (
           <p className="p-8 text-center text-gray-500">
@@ -144,7 +180,7 @@ export default function Bookings() {
         ) : (
           <table className="w-full">
 
-            <thead className="bg-gray-100">
+            <thead className="bg-gray-100 sticky top-0 z-10 [&_th]:bg-gray-100">
 
               <tr>
 
@@ -272,42 +308,6 @@ export default function Bookings() {
 
           </table>
         )}
-
-      </div>
-
-      {/* Summary Cards */}
-
-      <div className="grid md:grid-cols-3 gap-5">
-
-        <div className="bg-green-600 text-white rounded-xl p-6">
-          <h3 className="text-lg font-semibold">
-            Confirmed
-          </h3>
-
-          <p className="text-4xl font-bold mt-4">
-            {counts.confirmed}
-          </p>
-        </div>
-
-        <div className="bg-yellow-500 text-white rounded-xl p-6">
-          <h3 className="text-lg font-semibold">
-            Pending
-          </h3>
-
-          <p className="text-4xl font-bold mt-4">
-            {counts.pending}
-          </p>
-        </div>
-
-        <div className="bg-red-600 text-white rounded-xl p-6">
-          <h3 className="text-lg font-semibold">
-            Cancelled
-          </h3>
-
-          <p className="text-4xl font-bold mt-4">
-            {counts.cancelled}
-          </p>
-        </div>
 
       </div>
 

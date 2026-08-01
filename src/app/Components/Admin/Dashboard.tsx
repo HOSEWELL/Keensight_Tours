@@ -136,6 +136,41 @@ export default function Dashboard({ onNavigate }: Props) {
 
       </div>
 
+      {/* Quick Actions */}
+
+      <div className="bg-white rounded-2xl shadow p-6">
+
+        <h3 className="text-xl font-bold mb-5">
+          Quick Actions
+        </h3>
+
+        <div className="flex flex-wrap gap-4">
+
+          <button
+            onClick={() => onNavigate("tours")}
+            className="bg-[#03624C] text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
+          >
+            Add Tour
+          </button>
+
+          <button
+            onClick={() => onNavigate("bookings")}
+            className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition"
+          >
+            View Bookings
+          </button>
+
+          <button
+            onClick={() => onNavigate("customers")}
+            className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition"
+          >
+            Manage Customers
+          </button>
+
+        </div>
+
+      </div>
+
       {/* Lower Section */}
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -164,10 +199,10 @@ export default function Dashboard({ onNavigate }: Props) {
           ) : recentBookings.length === 0 ? (
             <p className="text-gray-500 text-sm">No bookings yet.</p>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="overflow-auto max-h-[50vh]">
             <table className="w-full">
 
-              <thead>
+              <thead className="bg-white sticky top-0 z-10 [&_th]:bg-white">
 
                 <tr className="text-left border-b">
 
@@ -262,41 +297,6 @@ export default function Dashboard({ onNavigate }: Props) {
 
             </div>
           )}
-
-        </div>
-
-      </div>
-
-      {/* Quick Actions */}
-
-      <div className="bg-white rounded-2xl shadow p-6">
-
-        <h3 className="text-xl font-bold mb-5">
-          Quick Actions
-        </h3>
-
-        <div className="flex flex-wrap gap-4">
-
-          <button
-            onClick={() => onNavigate("tours")}
-            className="bg-[#03624C] text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
-          >
-            Add Tour
-          </button>
-
-          <button
-            onClick={() => onNavigate("bookings")}
-            className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition"
-          >
-            View Bookings
-          </button>
-
-          <button
-            onClick={() => onNavigate("customers")}
-            className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition"
-          >
-            Manage Customers
-          </button>
 
         </div>
 

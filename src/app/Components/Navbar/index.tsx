@@ -38,6 +38,10 @@ export default function NavBar() {
       ? "text-[#03624C] border-b-2 border-[#03624C]"
       : "text-gray-700 hover:text-[#03624C] transition";
 
+  // The admin dashboard has its own Header and a full-height shell,
+  // so the public navbar would push it past the viewport.
+  if (pathname === "/admin") return null;
+
   return (
     <nav className="sticky top-0 z-50 bg-[#F0FDF4]/90 backdrop-blur-md shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center py-1 px-3">

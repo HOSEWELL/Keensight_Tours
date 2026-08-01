@@ -17,7 +17,7 @@ export default function Footer() {
         }, 3000);
     };
 
-    if (pathname === '/' || pathname.startsWith('/auth')) return null;
+    if (pathname === '/' || pathname.startsWith('/auth') || pathname.startsWith('/admin')) return null;
 
 
     return (

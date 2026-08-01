@@ -97,6 +97,52 @@ export default function Customers() {
 
       </div>
 
+      {/* Summary */}
+
+      <div className="grid md:grid-cols-4 gap-5">
+
+        <div className="bg-blue-600 text-white rounded-xl p-6">
+
+          <h3>Total Customers</h3>
+
+          <p className="text-4xl font-bold mt-4">
+            4
+          </p>
+
+        </div>
+
+        <div className="bg-green-600 text-white rounded-xl p-6">
+
+          <h3>Active</h3>
+
+          <p className="text-4xl font-bold mt-4">
+            3
+          </p>
+
+        </div>
+
+        <div className="bg-red-600 text-white rounded-xl p-6">
+
+          <h3>Inactive</h3>
+
+          <p className="text-4xl font-bold mt-4">
+            1
+          </p>
+
+        </div>
+
+        <div className="bg-purple-600 text-white rounded-xl p-6">
+
+          <h3>Total Revenue</h3>
+
+          <p className="text-2xl font-bold mt-4">
+            KSh 515,000
+          </p>
+
+        </div>
+
+      </div>
+
       {/* Search */}
 
       <div className="bg-white rounded-xl shadow p-5">
@@ -119,11 +165,11 @@ export default function Customers() {
 
       {/* Table */}
 
-      <div className="bg-white rounded-xl shadow overflow-x-auto">
+      <div className="bg-white rounded-xl shadow overflow-auto max-h-[65vh]">
 
         <table className="w-full">
 
-          <thead className="bg-gray-100">
+          <thead className="bg-gray-100 sticky top-0 z-10 [&_th]:bg-gray-100">
 
             <tr>
 
@@ -251,52 +297,6 @@ export default function Customers() {
           </tbody>
 
         </table>
-
-      </div>
-
-      {/* Summary */}
-
-      <div className="grid md:grid-cols-4 gap-5">
-
-        <div className="bg-blue-600 text-white rounded-xl p-6">
-
-          <h3>Total Customers</h3>
-
-          <p className="text-4xl font-bold mt-4">
-            4
-          </p>
-
-        </div>
-
-        <div className="bg-green-600 text-white rounded-xl p-6">
-
-          <h3>Active</h3>
-
-          <p className="text-4xl font-bold mt-4">
-            3
-          </p>
-
-        </div>
-
-        <div className="bg-red-600 text-white rounded-xl p-6">
-
-          <h3>Inactive</h3>
-
-          <p className="text-4xl font-bold mt-4">
-            1
-          </p>
-
-        </div>
-
-        <div className="bg-purple-600 text-white rounded-xl p-6">
-
-          <h3>Total Revenue</h3>
-
-          <p className="text-2xl font-bold mt-4">
-            KSh 515,000
-          </p>
-
-        </div>
 
       </div>
 
